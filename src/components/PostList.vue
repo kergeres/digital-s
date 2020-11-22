@@ -1,45 +1,44 @@
 
 <template>
   <div class="create">
-    <h1>Create new post page</h1>
+    <h1>Create</h1>
     <form class="grid-container">
       <input
         type="text"
-        class="grid-item item1"
+        class="grid-item"
         v-model="post.title"
-        placeholder="Type a description here"
+        placeholder="Title"
       />
       <input
-        type="file"
-        class="grid-item item2"
-        ref="fileInput"
-        accept="image/*"
-        v-on:change="previewImage"
+        type="text"
+        class="grid-item"
+        v-model="post.description"
+        placeholder="description"
       />
-      <button
-        class="grid-item item3"
-        type="button"
-        v-on:click="triggerChooseImg"
-      >
-        Choose Image
-      </button>
-      <div>
-        <img :src="post.image" class="image-preview" />
-      </div>
-      <button type="button" class="grid-item item4" v-on:click="createPost">
+      <input
+        type="text"
+        class="grid-item"
+        v-model="post.img"
+        id="img-id"
+        placeholder="Instert IMG URL"
+      />
+
+      <button type="button" class="grid-item buttonn" v-on:click="createPost">
         Create post
       </button>
-      <div class="containerke">
-        <article v-for="post in posts" :key="post.id" class="smallcont">
-          <img :src="post.img" class="kep" />
-          <h3>{{ post.title }}</h3>
-          <p>{{ post.description }}</p>
-          <button v-on:click="deletee(post.id)">delet</button>
-        </article>
-      </div>
     </form>
+    <div class="containerke">
+      <article v-for="post in posts" :key="post.id" class="smallcont">
+        <img :src="post.img" class="kep" />
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.description }}</p>
+        <button @click="deletee(post.id)">Delete</button>
+        <button class="de" @click="editt(post.id)">edit</button>
+      </article>
+    </div>
   </div>
 </template>
+
 
 <script>
 import { postRef } from '../firebase-db'
@@ -47,34 +46,28 @@ export default {
   name: 'Create',
   data () {
     return {
-      post: {
-        title: '',
-        image: null
+       post: {
+        title: ''
       },
       posts: []
     }
     
   },
   methods: {
-    triggerChooseImg(){
-      this.$refs.fileInput.click()
+    editt(id)
+    {
+      console.log(id);
     },
     deletee(id)
     {
       postRef.doc(id).delete();
-      console.log(id);
+      
     },
-    previewImage(){
-      const imageFile = this.$refs.fileInput.files[0]
-      const fileReader = new FileReader()
-      fileReader.onload = (event) => {
-        this.post.image = event.target.result
-      }
-    fileReader.readAsDataURL(imageFile)
-    },
+
     createPost () {
       postRef.add(this.post)
       this.$router.push('/')
+
     }
     },
     firestore: {
@@ -88,16 +81,40 @@ export default {
 
 <style>
 input {
-  height: 30px;
+  height: 40px;
+  width: 350px;
+  padding-left: 10px;
   margin: 5px auto;
+}
+.de {
+  width: 90px;
+  height: 20px;
+  display: block;
+  background-color: #434534;
+  color: #f1f1f1;
+  margin: 10px auto;
+  border: none;
+  cursor: pointer;
 }
 .new {
   width: 180px;
   border: 1px solid black;
 }
-
+.buttonn {
+  height: 45px;
+  width: 355px;
+  background-color: #434534;
+  color: #f1f1f1;
+  margin: 5px auto;
+  border: none;
+  cursor: pointer;
+}
+.buttonn:hover {
+  background-color: #abad9a;
+}
 .kep {
   width: 90px;
+  margin-bottom: 30px;
 }
 .containerke {
   width: 80%;
@@ -109,6 +126,9 @@ input {
 }
 .smallcont {
   margin: 20px;
+  border: 1px solid green;
+  width: 250px;
+  height: 250px;
 }
 
 .item3 {
@@ -122,12 +142,6 @@ input {
   margin: auto;
 }
 
-.item1 {
-  padding: 15px;
-  width: 300px;
-  align-content: center;
-  margin: auto;
-}
 .item2 {
   margin: auto;
   padding: 5px;
@@ -154,6 +168,6 @@ input {
 .grid-container {
   display: grid;
   grid-gap: 10px;
-  padding: 100px;
+  padding: 50px;
 }
 </style>

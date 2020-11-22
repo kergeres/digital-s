@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <div class="divi">
+        <router-link to="/">Create</router-link>
+        <router-link to="/about">Delete/Edit</router-link>
+      </div>
     </div>
     <router-view />
   </div>
@@ -14,19 +16,43 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: #f1f1f4;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto";
+}
+h1 {
+  margin-top: 40px;
+  color: #393b2c;
+}
+#nav {
+  height: 50px;
+  background-color: #434534;
+  text-align: center;
+  display: flex;
 }
 
-#nav {
-  padding: 30px;
+.divi {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+
+  right: 50px;
+  height: auto;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #f1f1f4;
+  margin: 25px 15px 5px 15px;
+  transform: translateY(-50%);
+  text-decoration: none;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #abad9a;
 }
 </style>
