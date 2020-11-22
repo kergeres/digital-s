@@ -32,8 +32,6 @@
         <img :src="post.img" class="kep" />
         <h3>{{ post.title }}</h3>
         <p>{{ post.description }}</p>
-        <button @click="deletee(post.id)">Delete</button>
-        <button class="de" @click="editt(post.id)">edit</button>
       </article>
     </div>
   </div>
@@ -120,13 +118,11 @@ input {
   width: 80%;
   height: 80%;
   padding: 20px;
-  border: 1px solid black;
   margin: auto;
   display: flex;
 }
 .smallcont {
   margin: 20px;
-  border: 1px solid green;
   width: 250px;
   height: 250px;
 }

@@ -26,7 +26,11 @@
         placeholder="Instert IMG URL"
       />
 
-      <button type="button" class="grid-item buttonn" v-on:click="updatePostR">
+      <button
+        type="button"
+        class="grid-item buttonn"
+        v-on:click="updatePostR(post.id)"
+      >
         Update post
       </button>
     </form>
@@ -35,7 +39,7 @@
         <img :src="post.img" class="kep" />
         <h3>{{ post.title }}</h3>
         <p>{{ post.description }}</p>
-        <button @click="deletee(post.id)">delet</button>
+        <button class="de" @click="deletee(post.id)">Delete</button>
         <button
           class="de"
           @click="editt(post.img, post.title, post.description, post.id)"
@@ -64,30 +68,33 @@ export default {
   methods: {
       editt(img, title, description, id)
     {
-      console.log(img, title, description);
+      
       document.querySelector("#title").value = title;
       document.querySelector("#desc").value = description;
       document.querySelector("#immg").value = img;
       document.querySelector(".key").innerHTML = id;
     },
 
-    updatePost(id)
-    {
-        let valtozo = "csocsi"
-        id.title.update({title: valtozo})
-    },
+    
     updatePostR() {
-      postRef.doc(this.post.id).set({
-        title: this.post.title
+      postRef.doc(this.post.title).set({
+        title: this.post.title,
+        description: this.post.description,
+        img: this.post.img
+
       });
 
-      this.$router.push("/");
+    },
+    updatePostD(id) {
+    
+    postRef.doc(id).delete();
+
     },
   
     deletee(id)
     {
       postRef.doc(id).delete();
-      console.log(id);
+      
       
     },
      
